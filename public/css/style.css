@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: cursive;
+}
+
+#page {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #0b1b3b, #1a1c22, #292c33, #0b0539);
+}
+
+.navbar-brand{
+    color:#f1af15 !important;
+    text-shadow: 3px 3px 5px #000000;
+}
+
+.navbar-brand:hover {
+    color:#daa11c !important;
+    text-shadow: 3px 3px 5px #000000;
+}
+
+.nav-link {
+    text-shadow: 6px 6px 5px #000000;
+}
+
+.nav-link:hover{
+    text-shadow: 3px 3px 5px #000000;
+    color: #daa11c !important; 
+}
+
+.nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color:#f1af15;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-link:hover::before {
+        width: 100%;
+        visibility: visible;
+}
+
+
+.input-search {
+    width: 200px;
+    box-shadow: 3px 3px 5px #000000;
+}
+
+.input-search:hover {
+    width: 300px;
+    transition: 1s ease-in-out;
+}
+
+.input-search::placeholder {
+    color: rgba(255, 255, 255, 0.799) !important;
+    opacity: 1;
+}
+
+
+@media screen and (max-width: 769px) {
+    .nav-link {
+        font-size: 16px;
+        margin: auto;
+    }
+
+    .input-search {
+        max-width: 150px;
+        margin-bottom:5px ;
+    }
+
+    #btnlogin,
+    #btnsignup {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+} 
+
+#welcome h3{
+    padding: 100px 0 0 175px;
+    color: #700606 !important;
+    text-shadow: 3px 3px 5px #700606;
+}
+
+#welcome pre{
+    padding: 10px 0 0 20px;
+    font-size: 15px;
+    font-family: cursive;
+    text-shadow: 3px 3px 5px #700606;
+}
+
+#index{
+    padding: 10px 0 0 0;
+}
+

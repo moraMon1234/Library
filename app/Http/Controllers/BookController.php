@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function index(){
-
+        $books = Book::all();
+        return view ("index",compact("books"));
     }
 
     public function create(){
@@ -31,7 +32,8 @@ class BookController extends Controller
         // dd("you are in success route");
 
         Book::create($data);
-        echo "Success, You created a new book";
+        return redirect('books/index');
+        // echo "Success, You created a new book";
 
     }
 
