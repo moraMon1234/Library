@@ -9,7 +9,6 @@
               <div class="profile-pic">
                 <div class="count-indicator">
                   <img class="img-xs rounded-circle " src="{{ asset('images/faces/face10.jpg') }}" alt="">
-                  <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
                   <h5 class="mb-0 font-weight-normal text-center">Mora Montasser</h5>
@@ -64,22 +63,6 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="/create">
-              <span class="menu-icon">
-                <i class="mdi mdi-playlist-play"></i>
-              </span>
-              <span class="menu-title">Add a new Book</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
-            <a class="nav-link" href="/add">
-              <span class="menu-icon">
-                <i class="mdi mdi-playlist-play"></i>
-              </span>
-              <span class="menu-title">Add a new Author</span>
-            </a>
-          </li>
-          <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>
@@ -91,7 +74,7 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="/book">Book</a></li>
                 <li class="nav-item"> <a class="nav-link" href="/author">Author</a></li>
-                <li class="nav-item"> <a class="nav-link" href="/user">User</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/student">Student</a></li>
               </ul>
             </div>
           </li>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Author;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -19,7 +20,10 @@ class BookController extends Controller
     public function create()
     {
         $authors = Author::all(); 
-        return view('create', compact('authors'));
+        $students = Student::all(); 
+
+        return view('create', compact('authors','students'));
+
     }
 
     /**
@@ -32,7 +36,8 @@ class BookController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'author_id' => 'required|exists:authors,id', // التأكد من صحة المؤلف
+            'author_id' => 'required|exists:authors,id',
+            'student_id' => 'exists:students,id',
         ]);
 
         $filename = null;
@@ -48,17 +53,20 @@ class BookController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'image' => $filename,
-            'author_id' => $request->author_id, // ربط الكتاب بالمؤلف
+            'author_id' => $request->author_id,
+            'student_id' => $request->student_id,
+
         ]);
 
-        return redirect('/book')->with('success', 'تم إنشاء الكتاب بنجاح!');
+        return redirect('/book');
     }
 
     public function update($id)
     {
         $book = Book::findOrFail($id);
         $authors = Author::all(); 
-        return view("update", compact("book", "authors"));
+        $students = Student::all();
+        return view("update", compact("book", "authors","students"));
     }
 
     public function execute(Request $request)
@@ -70,6 +78,8 @@ class BookController extends Controller
             'price' => 'required|numeric|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'author_id' => 'required|exists:authors,id',
+            'student_id' => 'exists:students,id',
+
         ]);
 
         $book = Book::findOrFail($request->id);
@@ -89,9 +99,11 @@ class BookController extends Controller
             'price' => $request->price,
             'image' => $filename,
             'author_id' => $request->author_id, 
+            'student_id' => $request->student_id,
+
         ]);
 
-        return redirect('/book')->with('success', 'The update is success');
+        return redirect('/book');
     }
 
 
@@ -100,9 +112,18 @@ class BookController extends Controller
         try {
             $book = Book::findOrFail($id);
             $book->delete();
-            return redirect('/book')->with('success', 'The book is deleted');
+            return redirect('/book');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'error ' . $e->getMessage());
+            return redirect()->back();
         }
+    }
+
+    public function search(Request $request)
+    {
+  
+      $query = $request->input('query');
+      $books = Book::where('name', 'like', "%{$query}%")->get();
+      return view('book', compact('books'));
+      
     }
 }

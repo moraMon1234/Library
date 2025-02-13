@@ -13,37 +13,55 @@
                 
                 <div class="form-group">
                     <label for="name" class="text-light">Name</label>
-                    <input type="text" class="form-control bg-dark text-white border-primary" id="name" name="name" required>
+                    <input type="text" class="form-control bg-dark text-white border-primary" id="name" name="name" value="{{ old('name') }}">
+                    @error('name')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="text-light">Email</label>
-                    <input type="email" class="form-control bg-dark text-white border-primary" id="email" name="email" required>
+                    <input type="email" class="form-control bg-dark text-white border-primary" id="email" name="email" value="{{ old('email') }}">
+                    @error('email')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="job_description" class="text-light">Job Description</label>
-                    <input type="text" class="form-control bg-dark text-white border-primary" id="job_description" name="job_description" required>
+                    <input type="text" class="form-control bg-dark text-white border-primary" id="job_description" name="job_description" value="{{ old('job_description') }}">
+                    @error('job_description')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="bio" class="text-light">Bio</label>
-                    <textarea class="form-control bg-dark text-white border-primary" id="bio" name="bio" required></textarea>
+                    <textarea class="form-control bg-dark text-white border-primary" id="bio" name="bio">{{ old('bio') }}</textarea>
+                    @error('bio')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="books_id" class="text-light">Select Book</label>
-                    <select class="form-control bg-dark text-white border-primary" id="books_id" name="books_id" required>
+                    <select class="form-control bg-dark text-white border-primary" id="books_id" name="books_id">
                         <option value="">Select a Book</option>
                         @foreach($books as $book)
-                            <option value="{{ $book->id }}">{{ $book->name }}</option>
+                            <option value="{{ $book->id }}" {{ old('books_id') == $book->id ? 'selected' : '' }}>{{ $book->name }}</option>
                         @endforeach
                     </select>
+                    @error('books_id')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
-                    <label for="image" class="text-light">Profile Image</label>
-                    <input type="file" class="form-control bg-dark text-white border-primary" id="image" name="image" accept="image/*">
+                    <label for="profile_image" class="text-light">Profile Image</label>
+                    <input type="file" class="form-control bg-dark text-white border-primary" id="profile_image" name="profile_image" accept="image/*">
+                    @error('profile_image')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">

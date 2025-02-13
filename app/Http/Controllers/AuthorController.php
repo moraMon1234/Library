@@ -29,19 +29,19 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
             'email' => 'required|email|unique:authors,email',
             'job_description' => 'required|string',
             'bio' => 'required|string',
-            'books_id' => 'required|exists:books,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'books_id' => 'required|integer|exists:books,id',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $filename = null;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '_author.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $filename);
+        if ($request->hasFile('profile_image')) {
+            $profile_image = $request->file('profile_image');
+            $filename = time() . '_author.' . $profile_image->getClientOriginalExtension();
+            $profile_image->move(public_path('images'), $filename);
         }
 
         Author::create([
@@ -50,11 +50,10 @@ class AuthorController extends Controller
             'job_description' => $request->job_description,
             'bio' => $request->bio,
             'books_id' => $request->books_id,
-            'image' => $filename,
+            'profile_image' => $filename,
         ]);
 
-        // return redirect()->route('author')->with('success', 'Author created successfully.');
-        return redirect('/author')->with('success', 'تم إنشاء الكتاب بنجاح!');
+        return redirect('/author');
 
     }
 
@@ -94,7 +93,7 @@ class AuthorController extends Controller
             'profile_image' => $filename,
         ]);
     
-        return redirect('/author')->with('success', 'تم تحديث البيانات بنجاح!');
+        return redirect('/author');
     }
     
 
@@ -103,9 +102,17 @@ class AuthorController extends Controller
         try {
             $author = Author::findOrFail($id);
             $author->delete();
-            return redirect('/author')->with('success', 'The book is deleted');
+            return redirect('/author');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'error ' . $e->getMessage());
+            return redirect()->back();
         }
+    }
+    public function search(Request $request)
+    {
+  
+      $query = $request->input('query');
+      $authors = Author::where('name', 'like', "%{$query}%")->get();
+      return view('author.author', compact('authors'));
+      
     }
 }
