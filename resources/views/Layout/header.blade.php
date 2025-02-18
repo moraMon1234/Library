@@ -24,16 +24,18 @@
           <i class="mdi mdi-theme-light-dark"></i>
         </a>
       </li>
-      <li class="nav-item dropdown border-left">
-        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+      <li class="nav-item  border-left">
+        <a class="nav-link" href="/" >
           <i class="mdi mdi-logout"></i>
         </a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+      <li class="nav-item">
+        <a class="nav-link"  href="#">
           <div class="navbar-profile">
             <img class="img-xs rounded-circle" src="{{ asset('images/faces/face10.jpg') }}" alt="">
-            <p class="mb-0 d-none d-sm-block navbar-profile-name">Mora Montasser</p>
+            <p class="mb-0 d-none d-sm-block navbar-profile-name">
+              {{ ucfirst(Auth::user()->name ?? 'Guest') }}
+            </p>
           </div>
         </a>
       </li>

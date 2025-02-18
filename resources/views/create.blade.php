@@ -65,7 +65,17 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
+                <div>
+                <label for="categories">Categories</label>
+                    <select name="categories[]" id="categories" class="form-control" multiple>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" 
+                                {{ isset($selectedCategories) && in_array($category->id, $selectedCategories) ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>      
+                </div>
                 <div class="form-group">
                     <label for="image" class="text-light">Book Image</label>
                     <input type="file" class="form-control bg-dark text-white border-primary @error('image') is-invalid @enderror"

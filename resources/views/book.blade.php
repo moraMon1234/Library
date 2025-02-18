@@ -66,9 +66,8 @@
                                          style="width: 50px; height: 50px;">
                                 </td>
                                 <td class="text-center">
-                                    <a href="/update/{{ $book->id }}" class="btn btn-success me-2">
-                                        Update
-                                    </a>
+                                    <a href="show/{{ $book->id }}" class="btn btn-primary ">Show</a>
+                                    <a href="/update/{{ $book->id }}" class="btn btn-success me-2">Update</a>
                                     <form action="/delete/{{ $book->id }}" method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
@@ -87,4 +86,4 @@
     </div>
 </div>
 
-@endsection
+@endsection  

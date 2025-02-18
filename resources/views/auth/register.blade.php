@@ -1,0 +1,4 @@
+<x-auth type="register" />
+
+
+

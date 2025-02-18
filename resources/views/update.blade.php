@@ -68,6 +68,18 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="categories" class="text-light">Categories</label>
+                    <select name="categories[]" id="categories" class="form-control bg-dark text-white border-primary" multiple>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" 
+                                {{ $book->categories->contains($category->id) ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
 
                 <div class="form-group">
                     <label for="image" class="text-light">Book Image</label>
