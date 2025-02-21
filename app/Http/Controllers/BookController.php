@@ -13,7 +13,7 @@ class BookController extends Controller
 
     public function book()
     {
-        $books = Book::with('author')->get(); 
+        $books = Book::with(['author', 'student'])->get(); 
         return view("book", compact("books"));
     }
 
@@ -29,13 +29,11 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::with('categories')->findOrFail($id);
-        $categories = Category::all(); // جلب جميع الفئات
+        $categories = Category::all(); 
         return view('show', compact('book', 'categories'));
     }
     
-    /**
-     * تخزين كتاب جديد.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -52,12 +50,10 @@ class BookController extends Controller
         $filename = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $extension = $image->getClientOriginalExtension();
-            $filename = time() . '_library.' . $extension;
-            $image->move(public_path('images'), $filename);
+            $filename = time() . '_book.' . $image->getClientOriginalExtension();
+            $image->storeAs('images', $filename, 'public');
         }
 
-        // إنشاء الكتاب أولاً
         $book = Book::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -67,7 +63,6 @@ class BookController extends Controller
             'student_id' => $request->student_id,
         ]);
 
-        // إرفاق الفئات
         $book->categories()->attach($request->categories);
 
         return redirect('/book');
@@ -78,8 +73,8 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $authors = Author::all(); 
         $students = Student::all();
-        $categories = Category::all(); // جلب جميع الفئات
-        $selectedCategories = $book->categories->pluck('id')->toArray(); // الفئات المختارة
+        $categories = Category::all(); 
+        $selectedCategories = $book->categories->pluck('id')->toArray();
 
         return view("update", compact("book", "authors", "students", "categories", "selectedCategories"));
     }
@@ -102,10 +97,9 @@ class BookController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $extension = $image->getClientOriginalExtension();
-            $filename = time() . '_library.' . $extension;
-            $image->move(public_path('images'), $filename);
-        } else {
+            $filename = time() . '_book.' . $image->getClientOriginalExtension();
+            $image->storeAs('images', $filename, 'public');
+        }else {
             $filename = $book->image;
         }
 
@@ -127,7 +121,7 @@ class BookController extends Controller
     {
         try {
             $book = Book::findOrFail($id);
-            $book->categories()->detach(); // حذف العلاقة من الجدول الوسيط
+            $book->categories()->detach(); 
             $book->delete();
             return redirect('/book');
         } catch (\Exception $e) {
@@ -138,7 +132,10 @@ class BookController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $books = Book::where('name', 'like', "%{$query}%")->get();
+        $books = Book::with(['author', 'student'])
+                     ->where('name', 'like', "%{$query}%")
+                     ->get();
         return view('book', compact('books'));
     }
+    
 }

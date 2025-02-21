@@ -32,7 +32,11 @@
       <li class="nav-item">
         <a class="nav-link"  href="#">
           <div class="navbar-profile">
-            <img class="img-xs rounded-circle" src="{{ asset('images/faces/face10.jpg') }}" alt="">
+          <img 
+            class="img-xs rounded-circle" 
+            src="{{ asset('storage/' . Auth::user()->image) }}"
+            style="height: 50px; width: auto;" 
+            alt="Profile Image">
             <p class="mb-0 d-none d-sm-block navbar-profile-name">
               {{ ucfirst(Auth::user()->name ?? 'Guest') }}
             </p>
@@ -40,7 +44,7 @@
         </a>
       </li>
     </ul>
-    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"  data-toggle="offcanvas">
       <span class="mdi mdi-format-line-spacing"></span>
     </button>
   </div>

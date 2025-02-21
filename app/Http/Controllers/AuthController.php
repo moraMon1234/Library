@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -21,7 +22,20 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email|max:255',  
             'password' => 'required|confirmed|min:6',
             'is_admin' => 'required|boolean',  
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $filename = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            if ($file->isValid()) {
+                $filename = $file->store('images', 'public');
+            } else {
+                dd('File is not valid');
+            }
+        } else {
+            dd('No file uploaded');
+        }
 
         $user = User::create([
             'name' => $data['name'],
@@ -29,6 +43,7 @@ class AuthController extends Controller
             'password' => Hash::make($data['password']),
             'is_admin' => $data['is_admin'],
             'type' => $data['is_admin'] ? 'admin' : 'guest',  
+            'image' => $filename, 
         ]);
 
         Auth::login($user);
@@ -41,7 +56,7 @@ class AuthController extends Controller
         return view('auth.login', ['type' => 'login']);
     }
 
-    public function handleLogin(Request $request)
+    public function handlelogin(Request $request)
     {
         $credentials = $request->validate([
             'email' => 'required|email',

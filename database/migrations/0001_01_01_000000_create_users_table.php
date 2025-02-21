@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('is_admin')->default(0);
             $table->enum('type',['admin','guest'])->default('guest');
+            $table->string('image')->nullable(); 
             $table->timestamps();
         });
 

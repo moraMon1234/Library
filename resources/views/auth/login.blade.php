@@ -1,8 +1,1 @@
 <x-auth type="login" />
-
-
-
-
-
-
-

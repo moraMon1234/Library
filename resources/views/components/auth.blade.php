@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="text-white d-flex align-items-center justify-content-center w-100 vh-100 position-relative" 
-    style="background: url('./images/l60.jpg') no-repeat center center/cover;">
+    style="background:url('./images/l60.jpg') no-repeat center center/cover;">
 
     <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
 
@@ -20,7 +20,7 @@
                             {{ $type === 'register' ? 'Register' : 'Login' }}
                         </h2>
 
-                        <form action="{{ $type === 'register' ? route('auth.handleRegister') : route('auth.handlelogin') }}" method="POST">
+                        <form action="{{ $type === 'register' ? route('auth.handleRegister') : route('auth.handlelogin') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             @if($type === 'register')
@@ -66,8 +66,17 @@
                                         <option value="1">Admin</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="image" class="text-light">Image</label>
+                                    <input 
+                                        type="file" 
+                                        class="form-control bg-dark text-white border-primary @error('image') is-invalid @enderror" 
+                                        id="image" 
+                                        name="image" 
+                                        accept="image/*"
+                                    >
+                                </div>
                             @endif
-
                             @if($type === 'login')
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div class="form-check">

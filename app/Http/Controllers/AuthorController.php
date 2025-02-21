@@ -20,11 +20,12 @@ class AuthorController extends Controller
         return view("author.create", compact("books"));
     }
 
-    public function show($id)
+        public function show($id)
     {
         $author = Author::with('book')->findOrFail($id);
         return view('author.show', compact('author'));
     }
+
 
     public function store(Request $request)
     {
@@ -36,14 +37,14 @@ class AuthorController extends Controller
             'books_id' => 'required|integer|exists:books,id',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
+    
         $filename = null;
         if ($request->hasFile('profile_image')) {
             $profile_image = $request->file('profile_image');
             $filename = time() . '_author.' . $profile_image->getClientOriginalExtension();
-            $profile_image->move(public_path('images'), $filename);
+            $profile_image->storeAs('images', $filename, 'public');
         }
-
+    
         Author::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -52,10 +53,10 @@ class AuthorController extends Controller
             'books_id' => $request->books_id,
             'profile_image' => $filename,
         ]);
-
+    
         return redirect('/author');
-
     }
+    
 
     public function edit($id)
     {
@@ -80,8 +81,8 @@ class AuthorController extends Controller
         if ($request->hasFile('profile_image')) {
             $profile_image = $request->file('profile_image');
             $filename = time() . '_author.' . $profile_image->getClientOriginalExtension();
-            $profile_image->move(public_path('images'), $filename);
-        } else {
+            $profile_image->storeAs('images', $filename, 'public');
+        }else {
             $filename = $author->profile_image;
         }
     

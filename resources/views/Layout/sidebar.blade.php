@@ -1,4 +1,4 @@
-<nav class="sidebar sidebar-offcanvas h-100" id="sidebar">
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
   <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
     <a class="sidebar-brand brand-logo" href="index.html"><img src="{{ asset('images/logo.svg') }}" alt="logo" /></a>
     <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="{{ asset('images/logo-mini.svg') }}" alt="logo" /></a>
@@ -8,7 +8,7 @@
       <div class="profile-desc">
         <div class="profile-pic">
           <div class="count-indicator">
-            <img class="img-xs rounded-circle" src="{{ asset('images/faces/face10.jpg') }}" alt="">
+            <img class="img-xs rounded-circle" src="{{ asset('storage/' . Auth::user()->image) }}" style="height: 40px ; width: 40px; " alt="">
           </div>
           <div class="profile-name">
             <h5 class="mb-0 font-weight-normal text-center">
