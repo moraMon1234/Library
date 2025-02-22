@@ -14,7 +14,7 @@ class BookController extends Controller
     public function book()
     {
         $books = Book::with(['author', 'student'])->get(); 
-        return view("book", compact("books"));
+        return view("book.book", compact("books"));
     }
 
     public function create()
@@ -23,14 +23,14 @@ class BookController extends Controller
         $students = Student::all(); 
         $categories = Category::all(); 
 
-        return view('create', compact('authors', 'students', 'categories'));
+        return view('book.create', compact('authors', 'students', 'categories'));
     }
 
     public function show($id)
     {
         $book = Book::with('categories')->findOrFail($id);
         $categories = Category::all(); 
-        return view('show', compact('book', 'categories'));
+        return view('book.show', compact('book', 'categories'));
     }
     
 
@@ -76,7 +76,7 @@ class BookController extends Controller
         $categories = Category::all(); 
         $selectedCategories = $book->categories->pluck('id')->toArray();
 
-        return view("update", compact("book", "authors", "students", "categories", "selectedCategories"));
+        return view("book.update", compact("book", "authors", "students", "categories", "selectedCategories"));
     }
 
     public function execute(Request $request)
@@ -135,7 +135,7 @@ class BookController extends Controller
         $books = Book::with(['author', 'student'])
                      ->where('name', 'like', "%{$query}%")
                      ->get();
-        return view('book', compact('books'));
+        return view('book.book', compact('books'));
     }
     
 }

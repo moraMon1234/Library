@@ -34,7 +34,6 @@
 
     @auth
       @if(Auth::user()->type == 'admin')
-        <!-- روابط خاصة بالـ Admin -->
         <li class="nav-item menu-items">
           <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <span class="menu-icon">

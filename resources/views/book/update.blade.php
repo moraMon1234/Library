@@ -11,11 +11,9 @@
             'label' => 'Book Image', 
             'name' => 'image', 
             'type' => 'file',
-            'image' => $book->image ? asset('storage/images/'. $book->image) : null
+            'image' => $book->image ? asset('storage/images/' . $book->image) : null
         ]
-
     ]"
-
     function="update"
     table="book"
 />

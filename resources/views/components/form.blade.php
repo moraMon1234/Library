@@ -57,13 +57,22 @@
                                 @endforeach
                             </select>
 
-                        @elseif ($field['type'] === 'file')
-                            <input type="file" 
-                                   class="form-control bg-dark text-white border-primary @error($field['name']) is-invalid @enderror" 
-                                   id="{{ $field['name'] }}" 
-                                   name="{{ $field['name'] }}" 
-                                   />
-                        @endif
+                            @elseif ($field['type'] === 'file')
+                                <div class="mb-3">
+                                    <input type="file" 
+                                        class="form-control bg-dark text-white border-primary @error($field['name']) is-invalid @enderror" 
+                                        id="{{ $field['name'] }}" 
+                                        name="{{ $field['name'] }}" />
+
+                                    @if (!empty($field['image']))
+                                        <label class="d-block text-light mt-2">Current Image:</label>
+                                        <img src="{{ $field['image'] }}" 
+                                            alt="Current Image" 
+                                            class="img-thumbnail mb-2" 
+                                            style="width: 150px; height: 150px; object-fit: cover;">
+                                    @endif
+                                </div>
+                            @endif
 
                         @error($field['name'])
                             <span class="text-danger">{{ $message }}</span>
